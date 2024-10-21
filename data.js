@@ -2382,7 +2382,7 @@ const data = [
   {
     "Item ID": "0710",
     Name: "CHICKEN QUARTER 8-10 OZ",
-    "Unit Size": "33.75/LB CS",
+    "Unit Size": "33.7LB CS",
 
     "Order Quantity": 0,
     Category: "WALK-IN FREEZER/COOLER  (MEATS)",
@@ -5842,7 +5842,7 @@ const data = [
   {
     "Item ID": 54193,
     Name: "DESSERT - DIRT PUDDING",
-    "Unit Size": "",
+    "Unit Size": "-",
 
     "Order Quantity": 0,
     Category: "CREAMERY - ICE CREAM",
@@ -5852,7 +5852,7 @@ const data = [
   {
     "Item ID": 54192,
     Name: "DESSERT - CANNOLI DIP",
-    "Unit Size": "",
+    "Unit Size": "-",
 
     "Order Quantity": 0,
     Category: "CREAMERY - ICE CREAM",
@@ -5862,8 +5862,7 @@ const data = [
   {
     "Item ID": 54168,
     Name: "BRKFST - SAUSAGE, EGG & CHEESE CROISSANT",
-    "Unit Size": "",
-
+    "Unit Size": "-",
     "Order Quantity": 0,
     Category: "CREAMERY - ICE CREAM",
     Location: "Stacks",
@@ -5872,8 +5871,7 @@ const data = [
   {
     "Item ID": 54167,
     Name: "BRKFST - BAGEL",
-    "Unit Size": "",
-
+    "Unit Size": "-",
     "Order Quantity": 0,
     Category: "CREAMERY - ICE CREAM",
     Location: "Stacks",
@@ -5883,7 +5881,42 @@ const data = [
     "Item ID": "0683",
     Name: "PRD VEG CUCUMBER ENGLISH",
     "Unit Size": "PAK6",
-
+    "Order Quantity": 0,
+    Category: "WALK-IN PRODUCE (FRESH CUT)",
+    Location: "Stacks",
+    Area: "PRODUCE",
+  },
+  {
+    "Item ID": "4069",
+    Name: "Leeks",
+    "Unit Size": "5 LB",
+    "Order Quantity": 0,
+    Category: "WALK-IN PRODUCE (FRESH CUT)",
+    Location: "Stacks",
+    Area: "PRODUCE",
+  },
+  {
+    "Item ID": "0938",
+    Name: "Diced Sweet Potato",
+    "Unit Size": "5 LB",
+    "Order Quantity": 0,
+    Category: "WALK-IN PRODUCE (FRESH CUT)",
+    Location: "Stacks",
+    Area: "PRODUCE",
+  },
+  {
+    "Item ID": "0853",
+    Name: "Lemons 140 ct",
+    "Unit Size": "1 CASE",
+    "Order Quantity": 0,
+    Category: "WALK-IN PRODUCE (FRESH CUT)",
+    Location: "Stacks",
+    Area: "PRODUCE",
+  },
+  {
+    "Item ID": "3777",
+    Name: "Sliced Red Pepper",
+    "Unit Size": "16 LB",
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
     Location: "Stacks",
@@ -5892,8 +5925,7 @@ const data = [
   {
     "Item ID": "0807",
     Name: "PRD VP CELERY DICED 1/4",
-    "Unit Size": "5/LB",
-
+    "Unit Size": "LB",
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
     Location: "Stacks",
@@ -5903,7 +5935,6 @@ const data = [
     "Item ID": "0812",
     Name: "PRD VP LETTUCE SHRD RIVER RANCH",
     "Unit Size": "LB",
-
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
     Location: "Stacks",
@@ -5922,7 +5953,7 @@ const data = [
   {
     "Item ID": 2806,
     Name: "PRD VP ONION RED SLCD 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -5942,7 +5973,7 @@ const data = [
   {
     "Item ID": "0815",
     Name: "PRD VP ONION WHIT DICED 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -5952,7 +5983,7 @@ const data = [
   {
     "Item ID": "0816",
     Name: "PRD VP ONION WHIT SLCD 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -6222,7 +6253,7 @@ const data = [
   {
     "Item ID": 4597,
     Name: "PRD VEG GARLIC PLD",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE",
@@ -6232,7 +6263,7 @@ const data = [
   {
     "Item ID": "0872",
     Name: "PRD VEG ONION RED",
-    "Unit Size": "LB",
+    "Unit Size": "25 LB/BAG",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE",
@@ -9137,7 +9168,7 @@ const data = [
   {
     "Item ID": 2806,
     Name: "PRD VP ONION RED SLCD 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -9157,7 +9188,7 @@ const data = [
   {
     "Item ID": "0815",
     Name: "PRD VP ONION WHIT DICED 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -9167,7 +9198,7 @@ const data = [
   {
     "Item ID": "0816",
     Name: "PRD VP ONION WHIT SLCD 1/4",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
@@ -9397,7 +9428,7 @@ const data = [
   {
     "Item ID": 4597,
     Name: "PRD VEG GARLIC PLD",
-    "Unit Size": "5/LB",
+    "Unit Size": "LB",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE",
@@ -9406,8 +9437,8 @@ const data = [
   },
   {
     "Item ID": "0872",
-    Name: "PRD VEG ONION RED (25 LB)",
-    "Unit Size": "BAG",
+    Name: "PRD VEG ONION RED",
+    "Unit Size": "25 LB/BAG",
 
     "Order Quantity": 0,
     Category: "WALK-IN PRODUCE",
@@ -10802,7 +10833,6 @@ const data = [
     "Item ID": 6294,
     Name: "PRINGLES - SCORCHIN BBQ 5.6 OZ",
     "Unit Size": "",
-
     "Order Quantity": 0,
     Category: "GROCERY",
     Location: "Provisions",
@@ -10812,7 +10842,6 @@ const data = [
     "Item ID": 5728,
     Name: "J. LINK TERIYAKI 1.5 OZ",
     "Unit Size": "",
-
     "Order Quantity": 0,
     Category: "GROCERY",
     Location: "Provisions",
