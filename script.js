@@ -151,8 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
     itemTableBody.innerHTML = ""; // Clear existing rows
     items.forEach((item) => {
       const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
-      const itemQuantity =
-        changes[key] || cachedData[key] || item.Order_Quantity;
+      const itemQuantity = changes[key] || cachedData[key] || item.Order_Quantity;
       const row = document.createElement("tr");
       row.innerHTML = `
               <td>${item.Item_ID}</td>
@@ -245,6 +244,46 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     renderItems(filteredItems);
   });
+
+  // Event Listener to handle item addition
+  document.getElementById('addItemForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Collect values from form fields
+    const itemId = document.getElementById('itemId').value;
+    const name = document.getElementById('itemName').value;
+    const unitSize = document.getElementById('unitSize').value;
+    // const orderQuantity = document.getElementById('orderQuantity').value;
+    const orderQuantity = 0;
+    const category = document.getElementById('category').value;
+    const location = document.getElementById('location').value;
+    const area = document.getElementById('area').value;
+
+    // Create new item object
+    const newItem = {
+        Item_ID: itemId,
+        Name: name,
+        Unit_Size: unitSize,
+        Order_Quantity: orderQuantity,
+        Category: category,
+        Location: location,
+        Area: area
+    };
+
+    // Append to the data list
+    data.push(newItem);
+
+    // debug
+    console.log("New item added:", newItem);
+    console.log("Updated data:", data);
+
+    // Close modal after submitting
+    const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
+    modal.hide();
+
+    document.getElementById('addItemForm').reset();
+  });
+
 
   downloadButton.addEventListener("click", function () {
     const itemsToOrder = data
