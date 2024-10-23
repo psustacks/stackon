@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to show item details in a popup
   function showItemDetails(item) {
     itemDetails.innerHTML = `
-        <p><strong>Item ID:</strong> ${item["Item ID"]}</p>
+        <p><strong>Item ID:</strong> ${item.Item_ID}</p>
         <p><strong>Name:</strong> ${item.Name}</p>
-        <p><strong>Unit Size:</strong> ${item["Unit Size"]}</p>
+        <p><strong>Unit Size:</strong> ${item.Unit_Size}</p>
         <p><strong>Category:</strong> ${item.Category}</p>
         <p><strong>Location:</strong> ${item.Location}</p>
         <p><strong>Area:</strong> ${item.Area}</p>
@@ -150,18 +150,18 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderItems(items) {
     itemTableBody.innerHTML = ""; // Clear existing rows
     items.forEach((item) => {
-      const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
+      const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
       const itemQuantity =
-        changes[key] || cachedData[key] || item["Order Quantity"];
+        changes[key] || cachedData[key] || item.Order_Quantity;
       const row = document.createElement("tr");
       row.innerHTML = `
-              <td>${item["Item ID"]}</td>
+              <td>${item.Item_ID}</td>
               <td>${item.Name}</td>
-              <td>${item["Unit Size"]}</td>
+              <td>${item.Unit_Size}</td>
               <td>
                   <div class="quantity-control">
                       <span class="quantity-down">-</span>
-                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item["Item ID"]}">
+                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item.Item_ID}">
                       <span class="quantity-up">+</span>
                   </div>
               </td>
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchTerm = this.value.toLowerCase();
     const filteredItems = currentLocationData.filter(
       (item) =>
-        item["Item ID"].toString().includes(searchTerm) ||
+        item.Item_ID.toString().includes(searchTerm) ||
         item.Name.toLowerCase().includes(searchTerm)
     );
     renderItems(filteredItems);
@@ -249,20 +249,20 @@ document.addEventListener("DOMContentLoaded", function () {
   downloadButton.addEventListener("click", function () {
     const itemsToOrder = data
       .map((item) => {
-        const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
+        const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
         const updatedQuantity = changes[key];
         if (updatedQuantity !== undefined) {
           // Only include relevant fields for Excel attachment
           return {
-            "Item ID": item["Item ID"],
-            Name: item["Name"],
-            "Unit Size": item["Unit Size"],
+            "Item ID": item.Item_ID,
+            "Name": item.Name,
+            "Unit Size": item.Unit_Size,
             "Order Quantity": updatedQuantity,
           };
         }
         return null;
       })
-      .filter((item) => item !== null && item["Order Quantity"] > 0); // Only include items with quantity > 0
+      .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     if (itemsToOrder.length > 0) {
       const workbook = createExcelFile(itemsToOrder);

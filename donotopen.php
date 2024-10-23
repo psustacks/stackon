@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
     $tableRows = "";
     foreach ($orderData as $order) {
         $tableRows .= "<tr>
-                        <td>{$order['Item ID']}</td>
-                        <td>{$order['Name']}</td>
-                        <td>{$order['Unit Size']}</td>
-                        <td>{$order['Order Quantity']}</td>
+                        <td>{$order.Item_ID}</td>
+                        <td>{$order.Name}</td>
+                        <td>{$order.Unit_Size}</td>
+                        <td>{$order.Order_Quantity}</td>
                        </tr>";
     }
     $orderTable = "<table border='1'>
