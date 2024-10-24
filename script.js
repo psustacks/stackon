@@ -31,6 +31,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const locationSelect = document.getElementById("LocationSelect");
   const areaSelect = document.getElementById("AreaSelect");
   const categorySelect = document.getElementById("categorySelect");
+
+  const modalLocationSelect = document.getElementById("modalLocation");
+  const modalAreaSelect = document.getElementById("modalArea");
+  const modalCategorySelect = document.getElementById("modalCategory");
+
   const itemTableBody = document.getElementById("itemTableBody");
 
   // Function to sort options alphabetically
@@ -63,6 +68,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Function to populate modal Categories based on selected area
+  function populateModalCategories(area) {
+    const filteredData = currentLocationData.filter(
+        (item) => item.Area === area
+    );
+    const categories = [...new Set(filteredData.map((item) => item.Category))];
+    const sortedCategories = sortAlphabetically(categories);
+
+    modalCategorySelect.innerHTML = ""; // Clear existing options
+    sortedCategories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        modalCategorySelect.appendChild(option);
+    });
+  }
+
   // Function to populate Areas based on selected Location
   function populateAreas(location) {
     const filteredData = currentLocationData.filter(
@@ -92,6 +114,29 @@ document.addEventListener("DOMContentLoaded", function () {
       deadlines[location] || "";
   }
 
+  // Function to populate modal Areas based on selected location
+  function populateModalAreas(location) {
+    const filteredData = currentLocationData.filter(
+        (item) => item.Location === location
+    );
+    const areas = [...new Set(filteredData.map((item) => item.Area))];
+    const sortedAreas = sortAlphabetically(areas);
+
+    modalAreaSelect.innerHTML = ""; // Clear existing options
+    sortedAreas.forEach((area) => {
+        const option = document.createElement("option");
+        option.value = area;
+        option.textContent = area;
+        modalAreaSelect.appendChild(option);
+    });
+
+    // Populate categories for the first area by default
+    if (sortedAreas.length > 0) {
+        modalAreaSelect.value = sortedAreas[0];
+        populateModalCategories(sortedAreas[0]);
+    }
+  }
+
   // Function to populate Locations based on access code
   function populateLocations(accessCode) {
     const locations = accessCodes[accessCode] || [];
@@ -111,6 +156,26 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sortedLocations.length > 0) {
       locationSelect.value = sortedLocations[0];
       filterItemsByLocation(sortedLocations[0]);
+    }
+  }
+
+  // Function to populate modal Locations based on access code
+  function populateModalLocations(accessCode) {
+    const locations = accessCodes[accessCode] || [];
+    const sortedLocations = sortAlphabetically(locations);
+
+    modalLocationSelect.innerHTML = ""; // Clear existing options
+    sortedLocations.forEach((location) => {
+        const option = document.createElement("option");
+        option.value = location;
+        option.textContent = location;
+        modalLocationSelect.appendChild(option);
+    });
+
+    // Populate areas for the first location by default
+    if (sortedLocations.length > 0) {
+        modalLocationSelect.value = sortedLocations[0];
+        populateModalAreas(sortedLocations[0]);
     }
   }
 
@@ -253,11 +318,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemId = document.getElementById('itemId').value;
     const name = document.getElementById('itemName').value;
     const unitSize = document.getElementById('unitSize').value;
-    // const orderQuantity = document.getElementById('orderQuantity').value;
     const orderQuantity = 0;
-    const category = document.getElementById('category').value;
-    const location = document.getElementById('location').value;
-    const area = document.getElementById('area').value;
+    const category = document.getElementById('modalCategory').value;
+    const location = document.getElementById('modalLocation').value;
+    const area = document.getElementById('modalArea').value;
 
     // Create new item object
     const newItem = {
@@ -284,6 +348,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('addItemForm').reset();
   });
 
+  // Event Listener to handle getting the user ID on the button click
+  document.getElementById('addItem').addEventListener('click', function(event) {
+    const accessCode = document.getElementById("accessCode").value.trim();
+    populateModalLocations(accessCode);
+  });
 
   downloadButton.addEventListener("click", function () {
     const itemsToOrder = data
@@ -393,4 +462,5 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.removeItem("changes");
     localStorage.removeItem("cacheTimestamp");
   }
+
 });
