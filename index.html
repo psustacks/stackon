@@ -68,16 +68,16 @@
                                             <input type="text" class="form-control" id="unitSize" required>
                                         </div>
                                         <div class="mb-3">
+                                            <label for="category" class="form-label">Category</label>
+                                            <input type="text" class="form-control" id="category" required>
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="location" class="form-label">Location</label>
-                                            <select id="modalLocation" class="form-select" required></select>
+                                            <input type="text" class="form-control" id="location" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="area" class="form-label">Area</label>
-                                            <select id="modalArea" class="form-select" required></select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="category" class="form-label">Category</label>
-                                            <select id="modalCategory" class="form-select" required></select>
+                                            <input type="text" class="form-control" id="area" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Add Item</button>
                                     </form>
@@ -89,7 +89,7 @@
 
                     <input type="text" id="searchInput" class="form-control" placeholder="Search by Item ID or Name">
                 </div>
-            
+
                 <!-- Items Table -->
                 <table class="table table-bordered">
                     <thead>
@@ -106,31 +106,13 @@
                 </table>
             </div>
 
-            <div class="sendOrderInformation">
-                <!-- Button to Trigger Download and Send Order Date in Email-->
-                <label for="orderDate">Order Date:</label>
-                <input type="date" id="orderDate" name="orderDate" required>
-                <button id="downloadData" class="btn btn-primary me-2" disabled>Send Data</button>
-                <!-- <button id="printDate" class="btn btn-primary me-2">Print Date</button> -->
-            </div>
+            <!-- Button to Trigger Download and Send -->
+            <button id="downloadData" class="btn btn-primary mt-3">Send Data</button>
         </div>
-        
-        <!-- Success Message Modal -->
-        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">Success</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        File successfully sent!
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
+
+        <!-- Success Message (Initially Hidden) -->
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+            File sent successfully!
         </div>
 
         <!-- Item Details Popup (Initially Hidden) -->
@@ -148,5 +130,3 @@
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html>

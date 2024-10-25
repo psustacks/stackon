@@ -12,17 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
     } else {
         $recipient = $accessCode . "@psu.edu";
     }
-    $recipient .= ",azs441@psu.edu,nad5490@psu.edu,ckt5383@psu.edu,abg6200+hfs@psu.edu";
+    $recipient .= ",ckt5383@psu.edu,abg6200+hfs@psu.edu";
 
     // Generate HTML table from order data
     $orderData = json_decode($_POST['orderData'], true);
     $tableRows = "";
     foreach ($orderData as $order) {
         $tableRows .= "<tr>
-                        <td>{$order.Item_ID}</td>
-                        <td>{$order.Name}</td>
-                        <td>{$order.Unit_Size}</td>
-                        <td>{$order.Order_Quantity}</td>
+                        <td>{$order['Item ID']}</td>
+                        <td>{$order['Name']}</td>
+                        <td>{$order['Unit Size']}</td>
+                        <td>{$order['Order Quantity']}</td>
                        </tr>";
     }
     $orderTable = "<table border='1'>
@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
         $subject = "Food Service Order Data File";
         $message = "Please find the attached order data file and a summary table below:\n\n";
         $message .= "<p><strong>Access Code:</strong> " . htmlspecialchars($accessCode) . "</p>";
-        $message .= "<p><strong>Order Date:</strong> " . htmlspecialchars($_POST['orderDate']) . "</p>";
         $message .= "<p><strong>Location:</strong> " . htmlspecialchars($location) . "</p>";
         $message .= $orderTable; // Append the HTML table to the message
 
@@ -86,4 +85,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
 } else {
     echo "Invalid request.";
 }
-?>
