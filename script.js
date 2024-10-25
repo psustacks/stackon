@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let changes = {}; // Store only the changes made by the user
   let currentLocationData = []; // To store items filtered by the selected location
+  let currentModalLocationData = [];
   let cachedData = getCachedData();
 
   const accessCodes = {
@@ -20,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     azs441: ["Biscotti", "Stacks", "Outpost", "Provisions"],
   };
 
+  let addButtonAccess = ["abg6200", "ckt5383", "azs441"];
+
   const deadlines = {
     Biscotti: "Order",
     Stacks: "Order",
@@ -31,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const locationSelect = document.getElementById("LocationSelect");
   const areaSelect = document.getElementById("AreaSelect");
   const categorySelect = document.getElementById("categorySelect");
+
+  const modalLocationSelect = document.getElementById("modalLocation");
+  const modalAreaSelect = document.getElementById("modalArea");
+  const modalCategorySelect = document.getElementById("modalCategory");
+
   const itemTableBody = document.getElementById("itemTableBody");
 
   // Function to sort options alphabetically
@@ -63,6 +71,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Function to populate modal Categories based on selected area
+  function populateModalCategories(area) {
+    const filteredData = currentModalLocationData.filter(
+        (item) => item.Area === area
+    );
+    const categories = [...new Set(filteredData.map((item) => item.Category))];
+    const sortedCategories = sortAlphabetically(categories);
+
+    modalCategorySelect.innerHTML = ""; // Clear existing options
+    sortedCategories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        modalCategorySelect.appendChild(option);
+    });
+  }
+
   // Function to populate Areas based on selected Location
   function populateAreas(location) {
     const filteredData = currentLocationData.filter(
@@ -92,6 +117,42 @@ document.addEventListener("DOMContentLoaded", function () {
       deadlines[location] || "";
   }
 
+  // Function to populate modal Areas based on selected location
+  function populateModalAreas(location) {
+    const filteredData = currentModalLocationData.filter(
+        (item) => item.Location === location
+    );
+    const areas = [...new Set(filteredData.map((item) => item.Area))];
+    const sortedAreas = sortAlphabetically(areas);
+
+    modalAreaSelect.innerHTML = ""; // Clear existing options
+    sortedAreas.forEach((area) => {
+        const option = document.createElement("option");
+        option.value = area;
+        option.textContent = area;
+        modalAreaSelect.appendChild(option);
+    });
+
+    // Populate categories for the first area by default
+    if (sortedAreas.length > 0) {
+        modalAreaSelect.value = sortedAreas[0];
+        populateModalCategories(sortedAreas[0]);
+    }
+  }
+
+  // Function to show addItem button based on access code
+  document.getElementById('accessCode').addEventListener('input', function () {
+    const enteredCode = this.value;
+    const addItemButton = document.getElementById('addItem');
+
+    // Show or hide "Add Item" button based on access
+    if (addButtonAccess.includes(enteredCode)) {
+      addItemButton.style.display = 'inline-block';
+    } else {
+      addItemButton.style.display = 'none';
+    }
+  });
+
   // Function to populate Locations based on access code
   function populateLocations(accessCode) {
     const locations = accessCodes[accessCode] || [];
@@ -114,10 +175,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Function to populate modal Locations based on access code
+  function populateModalLocations(accessCode) {
+    const locations = accessCodes[accessCode] || [];
+    const sortedLocations = sortAlphabetically(locations);
+
+    modalLocationSelect.innerHTML = ""; // Clear existing options
+    sortedLocations.forEach((location) => {
+        const option = document.createElement("option");
+        option.value = location;
+        option.textContent = location;
+        modalLocationSelect.appendChild(option);
+    });
+
+    // Populate areas for the first location by default
+    if (sortedLocations.length > 0) {
+        modalLocationSelect.value = sortedLocations[0];
+        populateModalAreas(sortedLocations[0]);
+    }
+  }
+
   // Function to filter items by selected location
   function filterItemsByLocation(location) {
     currentLocationData = data.filter((item) => item.Location === location);
     populateAreas(location); // Populate areas and categories based on filtered data
+  }
+
+  // Function to filter items by selected location
+  function filterItemsByLocationModal(location) {
+    currentModalLocationData = data.filter((item) => item.Location === location);
+    populateModalAreas(location); // Populate modal areas and modal category based on filtered data
   }
 
   // Function to populate items table based on selected category and Area
@@ -131,9 +218,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to show item details in a popup
   function showItemDetails(item) {
     itemDetails.innerHTML = `
-        <p><strong>Item ID:</strong> ${item["Item ID"]}</p>
+        <p><strong>Item ID:</strong> ${item.Item_ID}</p>
         <p><strong>Name:</strong> ${item.Name}</p>
-        <p><strong>Unit Size:</strong> ${item["Unit Size"]}</p>
+        <p><strong>Unit Size:</strong> ${item.Unit_Size}</p>
         <p><strong>Category:</strong> ${item.Category}</p>
         <p><strong>Location:</strong> ${item.Location}</p>
         <p><strong>Area:</strong> ${item.Area}</p>
@@ -150,18 +237,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderItems(items) {
     itemTableBody.innerHTML = ""; // Clear existing rows
     items.forEach((item) => {
-      const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
-      const itemQuantity =
-        changes[key] || cachedData[key] || item["Order Quantity"];
+      const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
+      const itemQuantity = changes[key] || cachedData[key] || item.Order_Quantity;
       const row = document.createElement("tr");
       row.innerHTML = `
-              <td>${item["Item ID"]}</td>
+              <td>${item.Item_ID}</td>
               <td>${item.Name}</td>
-              <td>${item["Unit Size"]}</td>
+              <td>${item.Unit_Size}</td>
               <td>
                   <div class="quantity-control">
                       <span class="quantity-down">-</span>
-                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item["Item ID"]}">
+                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item.Item_ID}">
                       <span class="quantity-up">+</span>
                   </div>
               </td>
@@ -235,34 +321,89 @@ document.addEventListener("DOMContentLoaded", function () {
     populateTable(this.value, area);
   });
 
+
+  modalLocationSelect.addEventListener("change", function () {
+    filterItemsByLocationModal(this.value);
+  });
+
+  // Event listener for Area selection
+  modalAreaSelect.addEventListener("change", function () {
+    populateModalCategories(this.value);
+  });
+
+
   // Event listener for Search Input
   document.getElementById("searchInput").addEventListener("input", function () {
     const searchTerm = this.value.toLowerCase();
     const filteredItems = currentLocationData.filter(
       (item) =>
-        item["Item ID"].toString().includes(searchTerm) ||
+        item.Item_ID.toString().includes(searchTerm) ||
         item.Name.toLowerCase().includes(searchTerm)
     );
     renderItems(filteredItems);
   });
 
+  // Event Listener to handle item addition
+  document.getElementById('addItemForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Collect values from form fields
+    const itemId = document.getElementById('itemId').value;
+    const name = document.getElementById('itemName').value;
+    const unitSize = document.getElementById('unitSize').value;
+    const orderQuantity = 0;
+    const category = document.getElementById('modalCategory').value;
+    const location = document.getElementById('modalLocation').value;
+    const area = document.getElementById('modalArea').value;
+
+    // Create new item object
+    const newItem = {
+        Item_ID: itemId,
+        Name: name,
+        Unit_Size: unitSize,
+        Order_Quantity: orderQuantity,
+        Category: category,
+        Location: location,
+        Area: area
+    };
+
+    // Append to the data list
+    data.push(newItem);
+
+    // debug
+    console.log("New item added:", newItem);
+    console.log("Updated data:", data);
+
+    // Close modal after submitting
+    const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
+    modal.hide();
+
+    document.getElementById('addItemForm').reset();
+  });
+
+  // Event Listener to handle getting the user ID on the button click
+  document.getElementById('addItem').addEventListener('click', function(event) {
+    const accessCode = document.getElementById("accessCode").value.trim();
+    populateModalLocations(accessCode);
+  });
+
   downloadButton.addEventListener("click", function () {
     const itemsToOrder = data
       .map((item) => {
-        const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
+        const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
         const updatedQuantity = changes[key];
         if (updatedQuantity !== undefined) {
           // Only include relevant fields for Excel attachment
           return {
-            "Item ID": item["Item ID"],
-            Name: item["Name"],
-            "Unit Size": item["Unit Size"],
+            "Item ID": item.Item_ID,
+            "Name": item.Name,
+            "Unit Size": item.Unit_Size,
             "Order Quantity": updatedQuantity,
           };
         }
         return null;
       })
-      .filter((item) => item !== null && item["Order Quantity"] > 0); // Only include items with quantity > 0
+      .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     if (itemsToOrder.length > 0) {
       const workbook = createExcelFile(itemsToOrder);
@@ -354,4 +495,5 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.removeItem("changes");
     localStorage.removeItem("cacheTimestamp");
   }
+
 });
