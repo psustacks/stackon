@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const existingCategories = document.getElementById("existingCategories");
   const downloadButton = document.getElementById("downloadData");
+  const orderDate = document.getElementById("orderDate");
   const successMessage = document.getElementById("successMessage");
 
   let changes = {}; // Store only the changes made by the user
@@ -321,12 +322,12 @@ document.addEventListener("DOMContentLoaded", function () {
     populateTable(this.value, area);
   });
 
-
+  // Event listener for Modal Location selection
   modalLocationSelect.addEventListener("change", function () {
     filterItemsByLocationModal(this.value);
   });
 
-  // Event listener for Area selection
+  // Event listener for Modal Area selection
   modalAreaSelect.addEventListener("change", function () {
     populateModalCategories(this.value);
   });
@@ -387,6 +388,21 @@ document.addEventListener("DOMContentLoaded", function () {
     populateModalLocations(accessCode);
   });
 
+  // Listen for changes in the date input
+  orderDate.addEventListener("input", function () {
+      if (orderDate.value) {
+          downloadButton.disabled = false;  // Enable button if date is selected
+      } else {
+          downloadButton.disabled = true;   // Keep button disabled if no date is selected
+      }
+  });
+
+  //   // Print the selected date when "Print Date" is clicked
+  // document.getElementById("printDate").addEventListener("click", function () {
+  //   const selectedDate = orderDate.value;
+  //   console.log("Selected Date:", selectedDate);
+  // });
+
   downloadButton.addEventListener("click", function () {
     const itemsToOrder = data
       .map((item) => {
@@ -395,10 +411,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (updatedQuantity !== undefined) {
           // Only include relevant fields for Excel attachment
           return {
-            "Item ID": item.Item_ID,
+            "Item_ID": item.Item_ID,
             "Name": item.Name,
-            "Unit Size": item.Unit_Size,
-            "Order Quantity": updatedQuantity,
+            "Unit_Size": item.Unit_Size,
+            "Order_Quantity": updatedQuantity,
           };
         }
         return null;
@@ -416,6 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData();
       formData.append("file", blob, "order_data.xlsx");
       formData.append("accessCode", localStorage.getItem("accessCode"));
+      formData.append("orderDate", orderDate.value); // Including the orderDate in the form
       formData.append("orderData", JSON.stringify(itemsToOrder)); // Add order data for the email body
       formData.append("location", locationSelect.value); // Include location in form data
 
@@ -458,7 +475,7 @@ document.addEventListener("DOMContentLoaded", function () {
     xhr.open("POST", "donotopen.php", true); // Your PHP file URL
     xhr.onload = function () {
       if (xhr.status === 200) {
-        successMessage.style.display = "block"; // Show success message
+        new bootstrap.Modal(document.getElementById("successModal")).show();
         clearCache(); // Clear cache after successful submission
       } else {
         alert("Failed to send file.");
