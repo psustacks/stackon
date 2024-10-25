@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
         $subject = "Food Service Order Data File";
         $message = "Please find the attached order data file and a summary table below:\n\n";
         $message .= "<p><strong>Access Code:</strong> " . htmlspecialchars($accessCode) . "</p>";
-        $message .= "<p><strong>Order Date:</strong> " . htmlspecialchars($_POST['orderDate']) . "</p>";
+        // $message .= "<p><strong>Order Date:</strong> " . htmlspecialchars($_POST['orderDate']) . "</p>";
         $message .= "<p><strong>Location:</strong> " . htmlspecialchars($location) . "</p>";
         $message .= $orderTable; // Append the HTML table to the message
 
