@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let changes = {}; // Store only the changes made by the user
   let currentLocationData = []; // To store items filtered by the selected location
+  let currentModalLocationData = [];
   let cachedData = getCachedData();
 
   const accessCodes = {
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to populate modal Categories based on selected area
   function populateModalCategories(area) {
-    const filteredData = currentLocationData.filter(
+    const filteredData = currentModalLocationData.filter(
         (item) => item.Area === area
     );
     const categories = [...new Set(filteredData.map((item) => item.Category))];
@@ -118,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to populate modal Areas based on selected location
   function populateModalAreas(location) {
-    const filteredData = currentLocationData.filter(
+    const filteredData = currentModalLocationData.filter(
         (item) => item.Location === location
     );
     const areas = [...new Set(filteredData.map((item) => item.Area))];
@@ -198,6 +199,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function filterItemsByLocation(location) {
     currentLocationData = data.filter((item) => item.Location === location);
     populateAreas(location); // Populate areas and categories based on filtered data
+  }
+
+  // Function to filter items by selected location
+  function filterItemsByLocationModal(location) {
+    currentModalLocationData = data.filter((item) => item.Location === location);
+    populateModalAreas(location); // Populate modal areas and modal category based on filtered data
   }
 
   // Function to populate items table based on selected category and Area
@@ -313,6 +320,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const area = areaSelect.value;
     populateTable(this.value, area);
   });
+
+
+  modalLocationSelect.addEventListener("change", function () {
+    filterItemsByLocationModal(this.value);
+  });
+
+  // Event listener for Area selection
+  modalAreaSelect.addEventListener("change", function () {
+    populateModalCategories(this.value);
+  });
+
 
   // Event listener for Search Input
   document.getElementById("searchInput").addEventListener("input", function () {
