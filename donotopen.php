@@ -85,3 +85,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
 } else {
     echo "Invalid request.";
 }
+?>

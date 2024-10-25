@@ -18,6 +18,11 @@ h1 {
     padding-top: 20px;
 }
 
+table {
+    width: 100%;
+    text-align: left;
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 1.25rem;
@@ -94,54 +99,4 @@ h1 {
 
 .close-popup:hover {
     color: red;
-}
-
-.item-search-container {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.item-search-container .d-flex {
-    display: flex;
-    align-items: center;
-}
-
-.item-search-container .form-control {
-    flex-grow: 1;
-}
-
-.me-2 {
-    margin-right: 8px; /* Adds some space between the button and the search bar */
-    flex-shrink: 0;
-} 
-
-.sendOrderInformation {
-    margin: auto;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.sendOrderInformation label {
-    font-weight: bold;
-    color: #333;
-    margin-right: 10px;
-}
-
-.sendOrderInformation input[type="date"] {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 100%;
-    margin-right: 10px;
 }
