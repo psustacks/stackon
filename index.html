@@ -106,13 +106,31 @@
                 </table>
             </div>
 
-            <!-- Button to Trigger Download and Send -->
-            <button id="downloadData" class="btn btn-primary mt-3">Send Data</button>
+            <div class="sendOrderInformation">
+                <!-- Button to Trigger Download and Send Order Date in Email-->
+                <label for="orderDate">Order Date:</label>
+                <input type="date" id="orderDate" name="orderDate" required>
+                <button id="downloadData" class="btn btn-primary me-2" disabled>Send Data</button>
+                <!-- <button id="printDate" class="btn btn-primary me-2">Print Date</button> -->
+            </div>
         </div>
         
-        <!-- Success Message (Initially Hidden) -->
-        <div id="successMessage" class="alert alert-success" style="display: none;">
-            File sent successfully!
+        <!-- Success Message Modal -->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Success</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        File successfully sent!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Item Details Popup (Initially Hidden) -->
