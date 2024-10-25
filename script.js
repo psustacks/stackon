@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Function to show addItem button based on access code
-  // Function to show addItem button based on access code
   document.getElementById('accessCode').addEventListener('input', function () {
     const enteredCode = this.value;
     const addItemButton = document.getElementById('addItem');

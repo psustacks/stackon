@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
     } else {
         $recipient = $accessCode . "@psu.edu";
     }
-    $recipient .= ",ckt5383@psu.edu,abg6200+hfs@psu.edu";
+    $recipient .= ",azs441@psu.edu,nad5490@psu.edu,ckt5383@psu.edu,abg6200+hfs@psu.edu";
 
     // Generate HTML table from order data
     $orderData = json_decode($_POST['orderData'], true);
