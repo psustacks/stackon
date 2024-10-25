@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     azs441: ["Biscotti", "Stacks", "Outpost", "Provisions"],
   };
 
+  let addButtonAccess = ["abg6200", "ckt5383", "azs441"];
+
   const deadlines = {
     Biscotti: "Order",
     Stacks: "Order",
@@ -136,6 +138,20 @@ document.addEventListener("DOMContentLoaded", function () {
         populateModalCategories(sortedAreas[0]);
     }
   }
+
+  // Function to show addItem button based on access code
+  // Function to show addItem button based on access code
+  document.getElementById('accessCode').addEventListener('input', function () {
+    const enteredCode = this.value;
+    const addItemButton = document.getElementById('addItem');
+
+    // Show or hide "Add Item" button based on access
+    if (addButtonAccess.includes(enteredCode)) {
+      addItemButton.style.display = 'inline-block';
+    } else {
+      addItemButton.style.display = 'none';
+    }
+  });
 
   // Function to populate Locations based on access code
   function populateLocations(accessCode) {
