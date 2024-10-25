@@ -411,15 +411,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (updatedQuantity !== undefined) {
           // Only include relevant fields for Excel attachment
           return {
-            "Item ID": item.Item_ID,
+            "Item_ID": item.Item_ID,
             "Name": item.Name,
-            "Unit Size": item.Unit_Size,
-            "Order Quantity": updatedQuantity,
+            "Unit_Size": item.Unit_Size,
+            "Order_Quantity": updatedQuantity,
           };
         }
         return null;
       })
-      .filter((item) => item !== null && item["Order_Quantity"] > 0); // Only include items with quantity > 0
+      .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     if (itemsToOrder.length > 0) {
       const workbook = createExcelFile(itemsToOrder);
