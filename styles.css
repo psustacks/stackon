@@ -6,7 +6,6 @@ body {
 h1 {
     color: #343a40;
     font-size: 1.75rem;
-    text-align: center;
 }
 
 .nav-tabs .nav-link.active {
@@ -144,4 +143,45 @@ h1 {
     border: 1px solid #ccc;
     width: 100%;
     margin-right: 10px;
+}
+
+.title-menu {
+    display: flex-start;
+    flex-direction: row;
+    align-items: center; /* Center the title */
+    position: relative;  /* Position relative for menu positioning */
+    width: 100%;
+}
+
+.menu {
+    display: none; /* Initially hidden */
+}
+
+.menu-button {
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.menu-button:hover {
+    background: #0056b3;
+}
+
+.cache-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background: #a72828;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cache-button:hover {
+    background: #bf3e32;
 }

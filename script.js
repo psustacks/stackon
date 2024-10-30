@@ -42,6 +42,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const itemTableBody = document.getElementById("itemTableBody");
 
+  const menuButton = document.querySelector('.menu-button');
+  const menu = document.getElementById('menu');
+  const cacheButton = document.querySelector('.cache-button');
+  
+
+  // Event listener for the menu button
+  menuButton.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+  
+  cacheButton.addEventListener('click', () => {
+    clearCache();
+  });
+
   // Function to sort options alphabetically
   function sortAlphabetically(arr) {
     return arr.sort((a, b) => a.localeCompare(b));
@@ -372,8 +386,8 @@ document.addEventListener("DOMContentLoaded", function () {
     data.push(newItem);
 
     // debug
-    console.log("New item added:", newItem);
-    console.log("Updated data:", data);
+    // console.log("New item added:", newItem);
+    // console.log("Updated data:", data);
 
     // Close modal after submitting
     const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));

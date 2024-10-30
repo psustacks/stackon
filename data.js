@@ -5880,7 +5880,7 @@ const data = [
   {
     Item_ID: "0683",
     Name: "PRD VEG CUCUMBER ENGLISH",
-    Unit_Size: "PAK12",
+    Unit_Size: "PAK6",
     Order_Quantity: 0,
     Category: "WALK-IN PRODUCE (FRESH CUT)",
     Location: "Stacks",
