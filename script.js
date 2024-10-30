@@ -383,7 +383,20 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Append to the data list
-    data.push(newItem);
+    // data.push(newItem);
+
+    // sending item data for email
+    const formData = new FormData();
+    formData.append("ItemID", itemId);
+    formData.append("ItemName", name);
+    formData.append("UnitSize", unitSize);
+    formData.append("OrderQuantity", orderQuantity);
+    formData.append("Category", category);
+    formData.append("Location", location);
+    formData.append("Area", area);
+
+    // Send the form data to the PHP script
+    sendItemData(formData);
 
     // debug
     // console.log("New item added:", newItem);
