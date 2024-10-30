@@ -483,6 +483,20 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
     return buf;
   }
+  
+  function sendItemData(itemData) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "send_item_mail.php", true); // Your PHP file URL
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        new bootstrap.Modal(document.getElementById("successModal")).show();
+        clearCache(); // Clear cache after successful submission
+      } else {
+        alert("Failed to send mail.");
+      }
+    };
+    xhr.send(formData);
+  }
 
   function sendFormData(formData) {
     const xhr = new XMLHttpRequest();
