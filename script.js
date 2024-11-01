@@ -223,19 +223,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to populate items table based on selected category and Area
   function populateTable(category, area) {
-    // const filteredData = currentLocationData.filter(
-    //   (item) => item.Category === category && item.Area === area
-    // );
-
-    // renderItems(filteredData);
-
     // Make an AJAX call to the PHP script
     fetch(`getItems.php?location=${encodeURIComponent(locationSelect.value)}&category=${encodeURIComponent(category)}&area=${encodeURIComponent(area)}`)
     .then(response => response.json())
     .then(data => {
       if (data) {
         console.log(response);
-        // renderItems(data); // Call your existing render function
+        renderItems(data); // fill the table
       } else {
         console.error('No data found');
       }
