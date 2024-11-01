@@ -388,7 +388,15 @@ document.addEventListener("DOMContentLoaded", function () {
     data.append("category", category);
     data.append("area", area);
 
-    sendItemData(data);
+    console.log("Items in Submission")
+    data.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+  });
+
+    console.log("Items in elements: ")
+    console.log(itemId, name, unitSize, orderQuantity, category, area)
+
+    // sendItemData(data);
 
     // Close modal after submitting
     const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
