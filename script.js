@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const existingCategories = document.getElementById("existingCategories");
   const downloadButton = document.getElementById("downloadData");
   const orderDate = document.getElementById("orderDate");
-  const successMessage = document.getElementById("successMessage");
 
   let changes = {}; // Store only the changes made by the user
   let currentLocationData = []; // To store items filtered by the selected location
@@ -224,10 +223,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to populate items table based on selected category and Area
   function populateTable(category, area) {
-    const filteredData = currentLocationData.filter(
-      (item) => item.Category === category && item.Area === area
-    );
-    renderItems(filteredData);
+    // const filteredData = currentLocationData.filter(
+    //   (item) => item.Category === category && item.Area === area
+    // );
+
+    // renderItems(filteredData);
+
+    // Make an AJAX call to the PHP script
+    fetch(`getItems.php?location=${encodeURIComponent(locationSelect.value)}&category=${encodeURIComponent(category)}&area=${encodeURIComponent(area)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        renderItems(data); // Call your existing render function
+      } else {
+        console.error('No data found');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
   }
 
   // Function to show item details in a popup
