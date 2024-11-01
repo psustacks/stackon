@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const existingCategories = document.getElementById("existingCategories");
   const downloadButton = document.getElementById("downloadData");
   const orderDate = document.getElementById("orderDate");
 
@@ -379,36 +378,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const location = document.getElementById('modalLocation').value;
     const area = document.getElementById('modalArea').value;
 
-    // Create new item object
-    const newItem = {
-        Item_ID: itemId,
-        Name: name,
-        Unit_Size: unitSize,
-        Order_Quantity: orderQuantity,
-        Category: category,
-        Location: location,
-        Area: area
-    };
+    const data = new URLSearchParams();
+    // data.append("location", location);
+    data.append("location", "sub_test"); // test table
+    data.append("item_id", itemId);
+    data.append("item_name", name);
+    data.append("unit_size", unitSize);
+    data.append("order_quantity", orderQuantity);
+    data.append("category", category);
+    data.append("area", area);
 
-    // Append to the data list
-    // data.push(newItem);
-
-    // sending item data for email
-    const formData = new FormData();
-    formData.append("ItemID", itemId);
-    formData.append("ItemName", name);
-    formData.append("UnitSize", unitSize);
-    formData.append("OrderQuantity", orderQuantity);
-    formData.append("Category", category);
-    formData.append("Location", location);
-    formData.append("Area", area);
-
-    // Send the form data to the PHP script
-    sendItemData(formData);
-
-    // debug
-    // console.log("New item added:", newItem);
-    // console.log("Updated data:", data);
+    sendItemData(data);
 
     // Close modal after submitting
     const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
@@ -505,20 +485,27 @@ document.addEventListener("DOMContentLoaded", function () {
     return buf;
   }
   
-  function sendItemData(itemData) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "send_item_mail.php", true); // Your PHP file URL
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        new bootstrap.Modal(document.getElementById("successModal")).show();
-        clearCache(); // Clear cache after successful submission
-      } else {
-        alert("Failed to send mail.");
-      }
-    };
-    xhr.send(formData);
+  function sendItemData() {
+    // Make the POST request to add the item
+    fetch('addItem.php', {
+      method: 'POST',
+      body: data
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          console.log(data.message); // Item added successfully
+        } else {
+          console.error(data.message); // Error message
+        }
+      })
+      .catch(error => {
+        console.error('Error adding item:', error);
+      });
   }
 
+
+  // Creates and Sends Excel file
   function sendFormData(formData) {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "donotopen.php", true); // Your PHP file URL
