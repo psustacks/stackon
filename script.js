@@ -234,7 +234,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => response.json())
     .then(data => {
       if (data) {
-        renderItems(data); // Call your existing render function
+        console.log(response);
+        // renderItems(data); // Call your existing render function
       } else {
         console.error('No data found');
       }
@@ -242,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => {
       console.error('Error fetching data:', error);
     });
-    console.log(response);
   }
 
   // Function to show item details in a popup
