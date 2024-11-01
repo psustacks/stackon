@@ -380,13 +380,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const data = new URLSearchParams();
     // data.append("location", location);
-    data.append("location", "sub_test"); // test table
+    data.append("location", 'sub_test'); // test table
     data.append("item_id", itemId);
     data.append("item_name", name);
     data.append("unit_size", unitSize);
     data.append("order_quantity", orderQuantity);
     data.append("category", category);
     data.append("area", area);
+
+    console.log("This is the data array:");
+    console.log(data);
 
     sendItemData(data);
 
