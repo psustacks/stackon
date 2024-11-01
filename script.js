@@ -228,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => response.json())
     .then(data => {
       if (data) {
-        console.log(response);
         renderItems(data); // fill the table
       } else {
         console.error('No data found');
