@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Items in elements: ")
     console.log(itemId, name, unitSize, orderQuantity, category, area)
 
-    // sendItemData(data);
+    sendItemData(data);
 
     // Close modal after submitting
     const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));

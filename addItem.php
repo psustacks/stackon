@@ -12,7 +12,7 @@ $category = $_POST['category'];
 $area = $_POST['area'];
 
 
-if ($table_name && $category && $area && $item_name) {
+if ($table_name) {
     // Prepare the SQL statement
     $sql = "INSERT INTO `$table_name` (`Item_ID`,`Name`,`Unit_Size`,`Order_Quantity`,`Category`, `Area`) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
