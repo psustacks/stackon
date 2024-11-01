@@ -388,9 +388,6 @@ document.addEventListener("DOMContentLoaded", function () {
     data.append("category", category);
     data.append("area", area);
 
-    console.log("This is the data array:");
-    console.log(data);
-
     sendItemData(data);
 
     // Close modal after submitting

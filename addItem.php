@@ -12,11 +12,11 @@ $category = $_POST['category'];
 $area = $_POST['area'];
 
 
-if ($tablename && $category && $area && $item_name) {
+if ($table_name && $category && $area && $item_name) {
     // Prepare the SQL statement
     $sql = "INSERT INTO `$table_name` (`Item_ID`,`Name`,`Unit_Size`,`Order_Quantity`,`Category`, `Area`) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $item_id, $item_name, $unit_size, $order_quantity, $category, $area);
+    $stmt->bind_param("sssiss", $item_id, $item_name, $unit_size, $order_quantity, $category, $area);
     
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Item added successfully']);
