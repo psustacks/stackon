@@ -445,13 +445,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //   .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     // if (itemsToOrder.length > 0) {
-      const workbook = createExcelFile(itemsToOrder);
-      const file = XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
-
-      // Convert the binary string to a Blob
-      const blob = new Blob([s2ab(file)], { type: "application/octet-stream" });
-
-      // Making test JSON items to order
       const itemsToOrder = [
         {
             "Item_ID": "12345",
@@ -466,6 +459,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "Order_Quantity": 5
         }
     ];
+      const workbook = createExcelFile(itemsToOrder);
+      const file = XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+
+      // Convert the binary string to a Blob
+      const blob = new Blob([s2ab(file)], { type: "application/octet-stream" });
 
       // Create a FormData object and append the Blob
       const formData = new FormData();
