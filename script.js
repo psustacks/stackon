@@ -427,24 +427,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // });
 
   downloadButton.addEventListener("click", function () {
-    const itemsToOrder = data
-      .map((item) => {
-        const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
-        const updatedQuantity = changes[key];
-        if (updatedQuantity !== undefined) {
-          // Only include relevant fields for Excel attachment
-          return {
-            "Item ID": item.Item_ID,
-            "Name": item.Name,
-            "Unit Size": item.Unit_Size,
-            "Order Quantity": updatedQuantity,
-          };
-        }
-        return null;
-      })
-      .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
+    // const itemsToOrder = data
+    //   .map((item) => {
+    //     const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
+    //     const updatedQuantity = changes[key];
+    //     if (updatedQuantity !== undefined) {
+    //       // Only include relevant fields for Excel attachment
+    //       return {
+    //         "Item ID": item.Item_ID,
+    //         "Name": item.Name,
+    //         "Unit Size": item.Unit_Size,
+    //         "Order Quantity": updatedQuantity,
+    //       };
+    //     }
+    //     return null;
+    //   })
+    //   .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
-    if (itemsToOrder.length > 0) {
+    // if (itemsToOrder.length > 0) {
       const workbook = createExcelFile(itemsToOrder);
       const file = XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
 
@@ -461,9 +461,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Send the form data to the PHP script
       sendFormData(formData);
-    } else {
-      alert("No items to send.");
-    }
+    // } else {
+    //   alert("No items to send.");
+    // }
   });
 
   function updateQuantity(input) {
