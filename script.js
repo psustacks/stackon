@@ -451,6 +451,22 @@ document.addEventListener("DOMContentLoaded", function () {
       // Convert the binary string to a Blob
       const blob = new Blob([s2ab(file)], { type: "application/octet-stream" });
 
+      // Making test JSON items to order
+      const itemsToOrder = [
+        {
+            "Item_ID": "12345",
+            "Name": "Apple",
+            "Unit_Size": "1 kg",
+            "Order_Quantity": 10
+        },
+        {
+            "Item_ID": "99999",
+            "Name": "test",
+            "Unit_Size": "1 dozen",
+            "Order_Quantity": 5
+        }
+    ];
+
       // Create a FormData object and append the Blob
       const formData = new FormData();
       formData.append("file", blob, "order_data.xlsx");
