@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return null;
       })
-      .filter((item) => item !== null && item["Order_Quantity"] > 0); // Only include items with quantity > 0
+      .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     if (itemsToOrder.length > 0) {
       const workbook = createExcelFile(itemsToOrder);
