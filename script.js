@@ -379,20 +379,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const area = document.getElementById('modalArea').value;
 
     const data = new FormData();
-    data.append("location", 'sub_test'); // test table
+    data.append("location", location);
     data.append("item_id", itemId);
     data.append("item_name", name);
     data.append("unit_size", unitSize);
     data.append("order_quantity", orderQuantity);
     data.append("category", category);
     data.append("area", area);
-
-    data.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-
-
-    console.log(itemId, name, unitSize, orderQuantity, category, area);
 
     sendItemData(data);
 
@@ -510,9 +503,9 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.open("POST", "addItem.php", true); // Your PHP file URL
       xhr.onload = function () {
         if (xhr.status === 200) {
-          console.log(data.message); // Item added successfully
+          console.log("Item Added Successfully!"); // Item added successfully
         } else {
-          alert("Failed to send file.");
+          console.error("An Error has occurred in the item addition")
         }
       };
       xhr.send(data);
