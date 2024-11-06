@@ -505,18 +505,18 @@ document.addEventListener("DOMContentLoaded", function () {
     return buf;
   }
   
-  function sendItemData() {
+  function sendItemData(formData) {
     // Make the POST request to add the item
     fetch('addItem.php', {
       method: 'POST',
-      body: data
+      body: formData
     })
       .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          console.log(data.message); // Item added successfully
+      .then(formData => {
+        if (formData.success) {
+          console.log(formData.message); // Item added successfully
         } else {
-          console.error(data.message); // Error message
+          console.error(formData.message); // Error message
         }
       })
       .catch(error => {
