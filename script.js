@@ -354,7 +354,6 @@ document.addEventListener("DOMContentLoaded", function () {
     populateModalCategories(this.value);
   });
 
-
   // Event listener for Search Input
   document.getElementById("searchInput").addEventListener("input", function () {
     const searchTerm = this.value.toLowerCase();
@@ -474,13 +473,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateQuantity(input) {
     const itemId = input.getAttribute("data-id");
+    const itemName = input.getAttribute("data-name");
+    const unitSize = input.getAttribute("data-unit-size");
     const category = categorySelect.value;
     const location = locationSelect.value;
-    const key = `${itemId}-${category}-${location}`;
-
-    changes[key] = parseInt(input.value, 10) || 0; // Store updated quantity
-    // cacheData(); // Cache data on update // cache policy removed for now.
-    // console.log(`Updated quantity for Item ID ${itemId} in ${category} at ${location}: ${changes[key]}`); // Debugging line
+    const orderQuantity = parseInt(input.value, 10) || 0;
+  
+    // Find the item in changes
+    const itemIndex = changes.findIndex(
+      (item) => item.Item_ID === itemId && item.Category === category && item.Location === location
+    );
+  
+    if (orderQuantity === 0) {
+      // Remove item if order quantity is 0
+      if (itemIndex > -1) {
+        changes.splice(itemIndex, 1);
+      }
+    } else {
+      const itemData = {
+        Item_ID: itemId,
+        Name: itemName,
+        Unit_Size: unitSize,
+        Order_Quantity: orderQuantity,
+        Category: category,
+        Location: location,
+      };
+  
+      if (itemIndex > -1) {
+        changes[itemIndex] = itemData;
+      } else {
+        changes.push(itemData);
+      }
+    }
+  
     console.log(changes);
   }
 
