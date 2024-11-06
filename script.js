@@ -388,13 +388,11 @@ document.addEventListener("DOMContentLoaded", function () {
     data.append("category", category);
     data.append("area", area);
 
-    console.log("Items in Submission")
     data.forEach((value, key) => {
       console.log(`${key}: ${value}`);
   });
 
-    console.log("Items in elements: ")
-    console.log(itemId, name, unitSize, orderQuantity, category, area)
+    console.log(itemId, name, unitSize, orderQuantity, category, area);
 
     sendItemData(data);
 
