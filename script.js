@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   
   cacheButton.addEventListener('click', () => {
+    forceReload();
     clearCache();
   });
 
@@ -478,10 +479,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const key = `${itemId}-${category}-${location}`;
 
     changes[key] = parseInt(input.value, 10) || 0; // Store updated quantity
-    cacheData(); // Cache data on update
-    console.log(
-      `Updated quantity for Item ID ${itemId} in ${category} at ${location}: ${changes[key]}`
-    ); // Debugging line
+    // cacheData(); // Cache data on update // cache policy removed for now.
+    // console.log(`Updated quantity for Item ID ${itemId} in ${category} at ${location}: ${changes[key]}`); // Debugging line
+    console.log(changes);
   }
 
   function createExcelFile(jsonObject) {
@@ -554,6 +554,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function clearCache() {
     localStorage.removeItem("changes");
     localStorage.removeItem("cacheTimestamp");
+  }
+  
+  function forceReload() {
+      window.location.reload(true);
   }
 
 });
