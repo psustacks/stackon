@@ -270,11 +270,12 @@ document.addEventListener("DOMContentLoaded", function () {
               <td>
                   <div class="quantity-control">
                       <span class="quantity-down">-</span>
-                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item.Item_ID}">
+                      <input type="number" value="${itemQuantity}" min="0" class="form-control" data-id="${item.Item_ID}" data-name="${item.Name}" data-unit-size="${item.Unit_Size}"> 
                       <span class="quantity-up">+</span>
                   </div>
               </td>
           `;
+          // line 273 attributes are changed as it is used to pass to the update quantity function, passing to changes array 
 
       // Add click event listener to the row
       row.addEventListener("click", function () {
@@ -436,21 +437,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //   .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
 
     // if (itemsToOrder.length > 0) {
-      const itemsToOrder = [
-        {
-            "Item_ID": "12345",
-            "Name": "Apple",
-            "Unit_Size": "1 kg",
-            "Order_Quantity": 10
-        },
-        {
-            "Item_ID": "99999",
-            "Name": "test",
-            "Unit_Size": "1 dozen",
-            "Order_Quantity": 5
-        }
-    ];
-      const workbook = createExcelFile(itemsToOrder);
+      const workbook = createExcelFile(changes);
       const file = XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
 
       // Convert the binary string to a Blob
@@ -471,6 +458,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // }
   });
 
+  // currently using the update quantity function to update the main changse array, then we will send changes to the excel file once the download button is pressed
   function updateQuantity(input) {
     const itemId = input.getAttribute("data-id");
     const itemName = input.getAttribute("data-name");
@@ -509,8 +497,8 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(changes);
   }
 
-  function createExcelFile(jsonObject) {
-    const worksheet = XLSX.utils.json_to_sheet(jsonObject);
+  function createExcelFile(jsonArray) {
+    const worksheet = XLSX.utils.json_to_sheet(jsonArray);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
     return workbook;
@@ -535,7 +523,6 @@ document.addEventListener("DOMContentLoaded", function () {
       };
       xhr.send(data);
   }
-
 
   // Creates and Sends Excel file
   function sendFormData(formData) {
