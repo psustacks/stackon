@@ -378,8 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const location = document.getElementById('modalLocation').value;
     const area = document.getElementById('modalArea').value;
 
-    const data = new URLSearchParams();
-    // data.append("location", location);
+    const data = new FormData();
     data.append("location", 'sub_test'); // test table
     data.append("item_id", itemId);
     data.append("item_name", name);
@@ -390,7 +389,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     data.forEach((value, key) => {
       console.log(`${key}: ${value}`);
-  });
+    });
+
 
     console.log(itemId, name, unitSize, orderQuantity, category, area);
 
@@ -505,23 +505,17 @@ document.addEventListener("DOMContentLoaded", function () {
     return buf;
   }
   
-  function sendItemData(formData) {
-    // Make the POST request to add the item
-    fetch('addItem.php', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(formData => {
-        if (formData.success) {
-          console.log(formData.message); // Item added successfully
+  function sendItemData(data) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "addItem.php", true); // Your PHP file URL
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          console.log(data.message); // Item added successfully
         } else {
-          console.error(formData.message); // Error message
+          alert("Failed to send file.");
         }
-      })
-      .catch(error => {
-        console.error('Error adding item:', error);
-      });
+      };
+      xhr.send(data);
   }
 
 
