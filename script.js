@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const downloadButton = document.getElementById("downloadData");
   const orderDate = document.getElementById("orderDate");
 
-  let changes = {}; // Store only the changes made by the user
+  let changes = []; // Store only the changes made by the user
   let currentLocationData = []; // To store items filtered by the selected location
   let currentModalLocationData = [];
   let cachedData = getCachedData();
