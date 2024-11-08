@@ -1,34 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const downloadButtonId = "downloadData";
-
-    const downloadButton = document.getElementById(downloadButtonId);
-    downloadButton.onclick = function () {
-        const itemId = document.getElementById('itemId').value;
-        const name = document.getElementById('itemName').value;
-        const unitSize = document.getElementById('unitSize').value;
-        const orderQuantity = 0;
-        const category = document.getElementById('modalCategory').value;
-        const location = document.getElementById('modalLocation').value;
-        const area = document.getElementById('modalArea').value;
-
-        const data = new FormData();
-        data.append("location", location);
-        data.append("item_id", itemId);
-        data.append("item_name", name);
-        data.append("unit_size", unitSize);
-        data.append("order_quantity", orderQuantity);
-        data.append("category", category);
-        data.append("area", area);
-
-        sendItemData(data);
-
-        // Close modal after submitting
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
-        modal.hide();
-
-        document.getElementById(downloadButtonId).reset();
-    }
-
     const orderDate = document.getElementById("orderDate");
 
     let changes = []; // Store only the changes made by the user
@@ -183,9 +153,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to show item details in a popup
     function showItemDetails(item) {
         itemDetails.innerHTML = `
-        <p><strong>Item ID:</strong> ${item["Item ID"]}</p>
+        <p><strong>Item ID:</strong> ${item.Item_ID}</p>
         <p><strong>Name:</strong> ${item.Name}</p>
-        <p><strong>Unit Size:</strong> ${item["Unit Size"]}</p>
+        <p><strong>Unit Size:</strong> ${item.Unit_Size}</p>
         <p><strong>Category:</strong> ${item.Category}</p>
         <p><strong>Location:</strong> ${item.Location}</p>
         <p><strong>Area:</strong> ${item.Area}</p>
@@ -202,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderItems(items) {
         itemTableBody.innerHTML = ""; // Clear existing rows
         items.forEach((item) => {
-            const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
+            const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
             const itemQuantity =
                 changes[key] || cachedData[key] || item.Order_Quantity;
             const row = document.createElement("tr");
@@ -288,16 +258,6 @@ document.addEventListener("DOMContentLoaded", function () {
         populateTable(this.value, area);
     });
 
-    // Event listener for Modal Location selection
-    modalLocationSelect.addEventListener("change", function () {
-        filterItemsByLocationModal(this.value);
-    });
-
-    // Event listener for Modal Area selection
-    modalAreaSelect.addEventListener("change", function () {
-        populateModalCategories(this.value);
-    });
-
     // Event listener for Search Input
     document.getElementById("searchInput").addEventListener("input", function () {
         const searchTerm = this.value.toLowerCase();
@@ -310,12 +270,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Event Listener to handle item addition
-    /*  document.getElementById(downloadButtonId).addEventListener('submit', function(event) {
+    document.getElementById("downloadData").addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
+        const itemId = document.getElementById('itemId').value;
+        const name = document.getElementById('itemName').value;
+        const unitSize = document.getElementById('unitSize').value;
+        const orderQuantity = 0;
 
-        // Collect values from form fields
+        const data = new FormData();
+        data.append("location", locationSelect);
+        data.append("item_id", itemId);
+        data.append("item_name", name);
+        data.append("unit_size", unitSize);
+        data.append("order_quantity", orderQuantity);
+        data.append("category", categorySelect);
+        data.append("area", areaSelect);
 
-      });*/
+        sendItemData(data);
+
+        // Close modal after submitting
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
+        modal.hide();
+      });
 
     // Event Listener to handle getting the user ID on the button click
     document.getElementById('addItem').addEventListener('click', function (event) {
@@ -335,24 +311,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
 
     downloadButton.addEventListener("click", function () {
-        // const itemsToOrder = data
-        //   .map((item) => {
-        //     const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
-        //     const updatedQuantity = changes[key];
-        //     if (updatedQuantity !== undefined) {
-        //       // Only include relevant fields for Excel attachment
-        //       return {
-        //         "Item ID": item.Item_ID,
-        //         "Name": item.Name,
-        //         "Unit Size": item.Unit_Size,
-        //         "Order Quantity": updatedQuantity,
-        //       };
-        //     }
-        //     return null;
-        //   })
-        //   .filter((item) => item !== null && item.Order_Quantity > 0); // Only include items with quantity > 0
-
-        // if (itemsToOrder.length > 0) {
         const workbook = createExcelFile(changes);
         const file = XLSX.write(workbook, {bookType: "xlsx", type: "binary"});
 
@@ -369,9 +327,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Send the form data to the PHP script
         sendFormData(formData);
-        // } else {
-        //   alert("No items to send.");
-        // }
     });
 
     // currently using the update quantity function to update the main changse array, then we will send changes to the excel file once the download button is pressed
