@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.append("file", blob, "order_data.xlsx");
       formData.append("accessCode", localStorage.getItem("accessCode"));
       formData.append("orderDate", orderDate.value); // Including the orderDate in the form
-      formData.append("orderData", JSON.stringify(itemsToOrder)); // Add order data for the email body
+      formData.append("orderData", JSON.stringify(changes)); // Add order data for the email body
       formData.append("location", locationSelect.value); // Include location in form data
 
       // Send the form data to the PHP script
