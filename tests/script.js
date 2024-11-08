@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const menuButton = document.querySelector('.menu-button');
     const menu = document.getElementById('menu');
-    const cacheButton = document.querySelector('.cache-button');s
+    const cacheButton = document.querySelector('.cache-button');
 
 
     // Event listener for the menu button
