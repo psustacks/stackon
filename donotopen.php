@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
 
         // Headers
         $headers = "MIME-Version: 1.0\r\n";
-        $headers .= "From: info@medilance.in\r\n";
+        $headers .= "From: stockon@medilance.in\r\n";
         $headers .= "Reply-To: anmol@psu.edu\r\n";
         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $boundary . "\"\r\n";
-
+        
         // Multipart boundary
         $body = "--" . $boundary . "\r\n";
         $body .= "Content-Type: text/html; charset=UTF-8\r\n";
