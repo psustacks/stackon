@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
         $body .= "--" . $boundary . "--";
 
         // Send email
-        if (mail($recipient, $subject, $body, $headers)) {
+        if (mail("sdr5549@psu.edu", $subject, $body, $headers)) {
             echo "Mail sent successfully!";
         } else {
             echo "Failed to send mail.";
