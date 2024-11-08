@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let changes = []; // Store only the changes made by the user
   let currentLocationData = []; // To store items filtered by the selected location
-  let currentModalLocationData = [];
   let cachedData = getCachedData();
 
   const accessCodes = {
@@ -20,8 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     azs441: ["Biscotti", "Stacks", "Outpost", "Provisions"],
   };
 
-  let addButtonAccess = ["abg6200", "ckt5383", "azs441"];
-
   const deadlines = {
     Biscotti: "Order",
     Stacks: "Order",
@@ -33,11 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const locationSelect = document.getElementById("LocationSelect");
   const areaSelect = document.getElementById("AreaSelect");
   const categorySelect = document.getElementById("categorySelect");
-
-  const modalLocationSelect = document.getElementById("modalLocation");
-  const modalAreaSelect = document.getElementById("modalArea");
-  const modalCategorySelect = document.getElementById("modalCategory");
-
   const itemTableBody = document.getElementById("itemTableBody");
 
   const menuButton = document.querySelector('.menu-button');
@@ -85,23 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to populate modal Categories based on selected area
-  function populateModalCategories(area) {
-    const filteredData = currentModalLocationData.filter(
-        (item) => item.Area === area
-    );
-    const categories = [...new Set(filteredData.map((item) => item.Category))];
-    const sortedCategories = sortAlphabetically(categories);
-
-    modalCategorySelect.innerHTML = ""; // Clear existing options
-    sortedCategories.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
-        modalCategorySelect.appendChild(option);
-    });
-  }
-
   // Function to populate Areas based on selected Location
   function populateAreas(location) {
     const filteredData = currentLocationData.filter(
@@ -131,42 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
       deadlines[location] || "";
   }
 
-  // Function to populate modal Areas based on selected location
-  function populateModalAreas(location) {
-    const filteredData = currentModalLocationData.filter(
-        (item) => item.Location === location
-    );
-    const areas = [...new Set(filteredData.map((item) => item.Area))];
-    const sortedAreas = sortAlphabetically(areas);
-
-    modalAreaSelect.innerHTML = ""; // Clear existing options
-    sortedAreas.forEach((area) => {
-        const option = document.createElement("option");
-        option.value = area;
-        option.textContent = area;
-        modalAreaSelect.appendChild(option);
-    });
-
-    // Populate categories for the first area by default
-    if (sortedAreas.length > 0) {
-        modalAreaSelect.value = sortedAreas[0];
-        populateModalCategories(sortedAreas[0]);
-    }
-  }
-
-  // Function to show addItem button based on access code
-  document.getElementById('accessCode').addEventListener('input', function () {
-    const enteredCode = this.value;
-    const addItemButton = document.getElementById('addItem');
-
-    // Show or hide "Add Item" button based on access
-    if (addButtonAccess.includes(enteredCode)) {
-      addItemButton.style.display = 'inline-block';
-    } else {
-      addItemButton.style.display = 'none';
-    }
-  });
-
   // Function to populate Locations based on access code
   function populateLocations(accessCode) {
     const locations = accessCodes[accessCode] || [];
@@ -189,36 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to populate modal Locations based on access code
-  function populateModalLocations(accessCode) {
-    const locations = accessCodes[accessCode] || [];
-    const sortedLocations = sortAlphabetically(locations);
-
-    modalLocationSelect.innerHTML = ""; // Clear existing options
-    sortedLocations.forEach((location) => {
-        const option = document.createElement("option");
-        option.value = location;
-        option.textContent = location;
-        modalLocationSelect.appendChild(option);
-    });
-
-    // Populate areas for the first location by default
-    if (sortedLocations.length > 0) {
-        modalLocationSelect.value = sortedLocations[0];
-        populateModalAreas(sortedLocations[0]);
-    }
-  }
-
   // Function to filter items by selected location
   function filterItemsByLocation(location) {
     currentLocationData = data.filter((item) => item.Location === location);
     populateAreas(location); // Populate areas and categories based on filtered data
-  }
-
-  // Function to filter items by selected location
-  function filterItemsByLocationModal(location) {
-    currentModalLocationData = data.filter((item) => item.Location === location);
-    populateModalAreas(location); // Populate modal areas and modal category based on filtered data
   }
 
   // Function to populate items table based on selected category and Area
@@ -241,9 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to show item details in a popup
   function showItemDetails(item) {
     itemDetails.innerHTML = `
-        <p><strong>Item ID:</strong> ${item.Item_ID}</p>
+        <p><strong>Item ID:</strong> ${item["Item ID"]}</p>
         <p><strong>Name:</strong> ${item.Name}</p>
-        <p><strong>Unit Size:</strong> ${item.Unit_Size}</p>
+        <p><strong>Unit Size:</strong> ${item["Unit Size"]}</p>
         <p><strong>Category:</strong> ${item.Category}</p>
         <p><strong>Location:</strong> ${item.Location}</p>
         <p><strong>Area:</strong> ${item.Area}</p>
@@ -260,13 +173,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderItems(items) {
     itemTableBody.innerHTML = ""; // Clear existing rows
     items.forEach((item) => {
-      const key = `${item.Item_ID}-${item.Category}-${item.Location}`;
-      const itemQuantity = changes[key] || cachedData[key] || item.Order_Quantity;
+      const key = `${item["Item ID"]}-${item.Category}-${item.Location}`;
+      const itemQuantity =
+        changes[key] || cachedData[key] || item["Order Quantity"];
       const row = document.createElement("tr");
       row.innerHTML = `
-              <td>${item.Item_ID}</td>
+              <td>${item["Item ID"]}</td>
               <td>${item.Name}</td>
-              <td>${item.Unit_Size}</td>
+              <td>${item["Unit Size"]}</td>
               <td>
                   <div class="quantity-control">
                       <span class="quantity-down">-</span>
@@ -360,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchTerm = this.value.toLowerCase();
     const filteredItems = currentLocationData.filter(
       (item) =>
-        item.Item_ID.toString().includes(searchTerm) ||
+        item["Item ID"].toString().includes(searchTerm) ||
         item.Name.toLowerCase().includes(searchTerm)
     );
     renderItems(filteredItems);
@@ -530,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
     xhr.open("POST", "donotopen.php", true); // Your PHP file URL
     xhr.onload = function () {
       if (xhr.status === 200) {
-        new bootstrap.Modal(document.getElementById("successModal")).show();
+        successMessage.style.display = "block"; // Show success message
         clearCache(); // Clear cache after successful submission
       } else {
         alert("Failed to send file.");

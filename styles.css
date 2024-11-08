@@ -17,6 +17,11 @@ h1 {
     padding-top: 20px;
 }
 
+table {
+    width: 100%;
+    text-align: left;
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 1.25rem;
