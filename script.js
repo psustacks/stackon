@@ -178,9 +178,9 @@ document.addEventListener("DOMContentLoaded", function () {
         changes[key] || cachedData[key] || item["Order Quantity"];
       const row = document.createElement("tr");
       row.innerHTML = `
-              <td>${item["Item ID"]}</td>
+              <td>${item.Item_ID}</td>
               <td>${item.Name}</td>
-              <td>${item["Unit Size"]}</td>
+              <td>${item.Unit_Size}</td>
               <td>
                   <div class="quantity-control">
                       <span class="quantity-down">-</span>

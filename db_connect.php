@@ -1,5 +1,7 @@
 <?php
-$dbHost = 'localhost';
+// $dbHost = 'localhost';
+
+$dbHost = 'srv917.hstgr.io';
 
 // Database Username
 $dbUser = 'u426693394_hfs';
