@@ -1,6 +1,4 @@
 <?php
-// $dbHost = 'localhost';
-
 $dbHost = 'srv917.hstgr.io';
 
 // Database Username
