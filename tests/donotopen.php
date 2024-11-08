@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
     } else {
         $recipient = $accessCode . "@psu.edu";
     }
-    $recipient .= ",abg6200+hfs@psu.edu";
+    $recipient .= ",ckt5383@psu.edu,abg6200+hfs@psu.edu,ajs9219@psu.edu";
 
     // Generate HTML table from order data
     $orderData = json_decode($_POST['orderData'], true);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file']) && isset($_P
 
         // Headers
         $headers = "MIME-Version: 1.0\r\n";
-        $headers .= "From: info@medilance.in\r\n";
+        $headers .= "From: stockon@medilance.in\r\n";
         $headers .= "Reply-To: anmol@psu.edu\r\n";
         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $boundary . "\"\r\n";
 
