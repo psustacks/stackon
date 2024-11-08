@@ -38,19 +38,30 @@ table {
     align-items: center;
 }
 
-.quantity-up, .quantity-down {
+.quantity-up {
     background-color: #7109f9;
     color: white;
     border: none;
     width: 30px;
     height: 30px;
     cursor: pointer;
-    border-radius: 0.5rem;
+    border-radius: 0 0.5rem 0.5rem 0; 
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0;
+    justify-content: center;
+}
+
+.quantity-down {
+    background-color: #7109f9;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 0.5rem 0 0 0.5rem; 
+    text-align: center;
+    margin: 0;
+    justify-content: center;
 }
 
 .quantity-control input {
@@ -60,7 +71,6 @@ table {
     border-radius: 0.5rem;
     margin: 0 5px;
 }
-
 .item-details-popup {
     position: fixed;
     top: 50%;
@@ -89,15 +99,4 @@ table {
 
 .close-popup:hover {
     color: red;
-}
-
-.alert {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    display: none; /* Initially hidden */
-    width: 300px;
-    text-align: center;
 }
