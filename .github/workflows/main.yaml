@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      - features
+      - main
 
 name: 🚀 Deploy Website on Push
 jobs:
