@@ -6,7 +6,6 @@ body {
 h1 {
     color: #343a40;
     font-size: 1.75rem;
-    text-align: center;
 }
 
 .nav-tabs .nav-link.active {
@@ -99,4 +98,95 @@ table {
 
 .close-popup:hover {
     color: red;
+}
+
+.item-search-container {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-search-container .d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.item-search-container .form-control {
+    flex-grow: 1;
+}
+
+.me-2 {
+    margin-right: 8px; /* Adds some space between the button and the search bar */
+    flex-shrink: 0;
+} 
+
+.sendOrderInformation {
+    margin: auto;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sendOrderInformation label {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.sendOrderInformation input[type="date"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-right: 10px;
+}
+
+.title-menu {
+    display: flex-start;
+    flex-direction: row;
+    align-items: center; /* Center the title */
+    position: relative;  /* Position relative for menu positioning */
+    width: 100%;
+}
+
+.menu {
+    display: none; /* Initially hidden */
+}
+
+.menu-button {
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.menu-button:hover {
+    background: #0056b3;
+}
+
+.cache-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background: #a72828;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cache-button:hover {
+    background: #bf3e32;
 }

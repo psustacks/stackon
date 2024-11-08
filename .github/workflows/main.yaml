@@ -16,5 +16,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: 82.180.143.190
+        server-dir: /dev_hfs_stockon/
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }} 
