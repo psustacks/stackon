@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const menuButton = document.querySelector('.menu-button');
     const menu = document.getElementById('menu');
-    const cacheButton = document.querySelector('.cache-button');
+    const cacheButton = document.querySelector('.cache-button');s
 
 
     // Event listener for the menu button
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     cacheButton.addEventListener('click', () => {
         forceReload();
-        clearCache();
+        clearWebsiteCache();
     });
 
     // Function to sort options alphabetically
@@ -482,6 +482,24 @@ document.addEventListener("DOMContentLoaded", function () {
     function clearCache() {
         localStorage.removeItem("changes");
         localStorage.removeItem("cacheTimestamp");
+    }
+
+    function clearWebsiteCache() {
+        // Clear website cache
+        caches.keys().then(function(names) {
+            for (let name of names) {
+            caches.delete(name);
+            }
+        });
+
+        // Clear browser cache
+        window.performance.clearResourceTimings();
+        window.performance.clearMarks();
+        window.performance.clearMeasures();
+        window.performance.clearNavigationTimings();
+
+        // Optional: Reload the page to ensure cache is cleared
+        window.location.reload();
     }
 
     function forceReload() {
